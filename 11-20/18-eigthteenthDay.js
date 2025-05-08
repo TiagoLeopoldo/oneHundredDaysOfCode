@@ -2,31 +2,22 @@
 
 const entrada = require("prompt-sync")({ sigint: true });
 
-const verificarOMaior = (primeiroNumero, segundoNumero) => {
-  let maior = primeiroNumero > segundoNumero ? primeiroNumero : segundoNumero;
-  return maior;
-};
-
-const informarNumero = (maior) => {
-  console.log(`O maior número é ${maior}.`);
+const obterNumeroValido = (informacao) => {
+  let numero;
+  do {
+    numero = parseInt(entrada(informacao));
+    if (isNaN(numero)) {
+      console.log("Valor inválido. Tente novamente");
+    };
+  } while (isNaN(numero));
+  return numero;
 };
 
 const executarPrograma = () => {
-  const primeiroNumero = parseInt(entrada("Informe o primeiro número, ele deve ser um número inteiro: "));
+  const primeiroNumero = obterNumeroValido("Informe o primeiro número, ele deve ser um número inteiro: ");
+  const segundoNumero = obterNumeroValido("Informe o segundo número, ele deve ser um número inteiro: ");
 
-  if (isNaN(primeiroNumero)) {
-    console.log("O primeiro valor informado é inválido.");
-    return;
-  }
-
-  const segundoNumero = parseInt(entrada("Informe o segundo número, ele deve ser um número inteiro: "));
-  if (isNaN(segundoNumero)) {
-    console.log("O segundo valor informado é inválido.");
-    return;
-  }
-  
-  const maiorNumero = verificarOMaior(primeiroNumero, segundoNumero);
-  informarNumero(maiorNumero);
+  console.log(`O maior número é ${Math.max(primeiroNumero, segundoNumero)}.`);
 };
 
 executarPrograma();
